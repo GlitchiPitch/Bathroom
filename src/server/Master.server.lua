@@ -10,13 +10,21 @@ local types = require(ReplicatedStorage.Types.Server.Main)
 local lineModule = require(serverModules.Line)
 local playerModule = require(serverModules.Player)
 
+local cutsModule = require(coreModules.Cuts)
+
 local line: types.Line
+
+function setupCore()
+    cutsModule.init()
+end
 
 function setup()
     lineModule.init(line)
     playerModule.init(
         lineModule.getLastFreePoint
     )
+
+    setupCore()
 end
 function init()
     setup()
