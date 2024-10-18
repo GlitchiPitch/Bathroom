@@ -19,9 +19,9 @@ export type CashButtons = Frame & {
 
 export type RobuxButtons = Frame & {
     X1: ControlPanelRobuxButton,
-    X2: ControlPanelRobuxButton,
-    X5: ControlPanelRobuxButton,
-    X10: ControlPanelRobuxButton,
+    X3: ControlPanelRobuxButton,
+    X7: ControlPanelRobuxButton,
+    X12: ControlPanelRobuxButton,
 }
 
 export type ControlPanelButtons = Frame & {
@@ -43,11 +43,14 @@ export type Abilities = Frame & {
     RunToBathroom: AbilitiesButton,
 }
 
+export type ToiletTimer = TextLabel
+
 export type Main = ScreenGui & {
     CashAmount: TextLabel,
     ProgressBar: ProgressBar,
     ControlPanel: ControlPanel,
     Abilities: Abilities,
+    ToiletTimer: ToiletTimer,
 }
 
 return true

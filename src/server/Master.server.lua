@@ -9,6 +9,7 @@ local types = require(ReplicatedStorage.Types.Server.Main)
 
 local lineModule = require(serverModules.Line)
 local playerModule = require(serverModules.Player)
+local coreLoop = require(coreModules.Loop)
 
 local cutsModule = require(coreModules.Cuts)
 
@@ -28,6 +29,7 @@ function setup()
 end
 function init()
     setup()
+    coreLoop.init()
 end
 
 init()
