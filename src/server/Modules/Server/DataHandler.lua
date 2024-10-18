@@ -44,21 +44,32 @@ function loadData(player: Player)
     local playerData = dataStore:GetAsync(player.UserId) or defaultExtraData
     local extra = createExtra(playerData)
     local session = createSession()
-    
+
     extra.Parent = player
     session.Parent = player
 end
 
-function saveData(player: Player) 
-
+function saveData(player: types.BathroomPlayer)
+    local dataToSave = {}
+    local playerData = getPlayerExtraData(player) :: Folder
+    if playerData then
+        for key, value in playerData:GetChildren() :: {IntValue | NumberValue | StringValue} do
+            dataToSave[key] = value.Value
+        end
+        dataStore:SetAsync(player.UserId, dataToSave)
+    else
+        warn(`could not be found session data for {player.Name} progress doesn't save`)
+    end
 end
 
-function getPlayerExtraData(player: types.BathroomPlayer)
-    
+function getPlayerExtraData(player: types.BathroomPlayer) : Folder
+    local extra = player:WaitForChild("Extra") :: Folder
+    return extra
 end
 
-function getPlayerSessionData(player: types.BathroomPlayer)
-    
+function getPlayerSessionData(player: types.BathroomPlayer) : Folder
+    local session = player:WaitForChild("Session") :: Folder
+    return session
 end
 
 return {
