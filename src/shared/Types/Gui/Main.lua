@@ -9,21 +9,28 @@ export type ControlPanelRobuxButton = TextButton & {
     CutsValue: TextLabel,
 }
 
-export type ControlPanel = Frame & {
-    Buttons: Frame & {
-        CashButtons: Frame & {
-            DoCut: TextButton,
-            Shove: TextButton,
-            StepBack: TextButton
-        },
-        RobuxButtons: Frame & {
-            X1: ControlPanelRobuxButton,
-            X2: ControlPanelRobuxButton,
-            X5: ControlPanelRobuxButton,
-            X10: ControlPanelRobuxButton,
-        }
-    },
+export type ControlPanelCashButton = TextButton
 
+export type CashButtons = Frame & {
+    DoCut: ControlPanelCashButton,
+    Shove: ControlPanelCashButton,
+    StepBack: ControlPanelCashButton,
+}
+
+export type RobuxButtons = Frame & {
+    X1: ControlPanelRobuxButton,
+    X2: ControlPanelRobuxButton,
+    X5: ControlPanelRobuxButton,
+    X10: ControlPanelRobuxButton,
+}
+
+export type ControlPanelButtons = Frame & {
+    CashButtons: CashButtons,
+    RobuxButtons: RobuxButtons,
+}
+
+export type ControlPanel = Frame & {
+    Buttons: ControlPanelButtons,
     FreeCuts: TextButton,
 }
 
