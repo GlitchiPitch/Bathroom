@@ -1,7 +1,10 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ServerScriptService = game:GetService("ServerScriptService")
 
 local types = require(ReplicatedStorage.Types.Server.Main)
+local dataHandler = require(ServerScriptService.Modules.Server.DataHandler)
+
 local getFreeLastPoint: () -> types.LinePoint
 
 
@@ -16,6 +19,7 @@ function onCharacterAdded(player: Player, character: Model)
 end
 
 function onPlayerAdded(player: Player)
+    dataHandler.loadData(player)
     player.CharacterAdded:Connect(function(character: Model)
         onCharacterAdded(player, character)
     end)
