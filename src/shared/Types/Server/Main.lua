@@ -12,9 +12,12 @@ export type LinePoint = Part & {
 
 export type Line = Folder & {LinePoint}
 
+export type ExtraData = Folder & dataTypes.PlayerExtraData<IntValue>
+export type SessionData = Folder & dataTypes.PlayerSessionData<IntValue>
+
 export type BathroomPlayer = Player & {
-    Extra: Folder & dataTypes.PlayerExtraData<IntValue>,
-    Session: Folder & dataTypes.PlayerSessionData<IntValue>,
+    Extra: ExtraData,
+    Session: SessionData,
 }
 
 return true
