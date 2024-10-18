@@ -13,7 +13,7 @@ export type LinePoint = Part & {
 export type Line = Folder & {LinePoint}
 
 export type ExtraData = Folder & dataTypes.PlayerExtraData<IntValue>
-export type SessionData = Folder & dataTypes.PlayerSessionData<IntValue>
+export type SessionData = Folder & dataTypes.PlayerSessionData<NumberValue>
 
 export type BathroomPlayer = Player & {
     Extra: ExtraData,
