@@ -13,7 +13,7 @@ local coreLoop = require(coreModules.Loop)
 
 local cutsModule = require(coreModules.Cuts)
 
-local line: types.Line
+local line: types.Line = workspace.Line
 
 function setupCore()
     cutsModule.init()

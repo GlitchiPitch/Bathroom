@@ -11,8 +11,8 @@ function giveCashToPlayers()
 			if #Players:GetPlayers() > 0 then
 				for _, player in Players:GetPlayers() :: { mainTypes.BathroomPlayer } do
 					local playerCash = player.Session.Cash :: NumberValue
-					local currentMultiplier = player.Session.CurrentMultiplier :: NumberValue
-					local income = config.BASIC_CASH_INCOME * currentMultiplier.Value
+					-- local currentMultiplier = player.Session.CurrentMultiplier :: NumberValue
+					local income = config.BASIC_CASH_INCOME -- * (currentMultiplier.Value or 1)
 					playerCash.Value += income
 				end
             else

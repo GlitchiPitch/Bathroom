@@ -3,7 +3,7 @@ local dataTypes = require(ReplicatedStorage.Types.Server.Data)
 
 export type LinePoint = Part & {
     OccupiedUser: ObjectValue,
-    CutPrice: NumberValue,
+    CutPrice: NumberValue?,
     IndexPoint: IntValue,
     SurfaceGui: SurfaceGui & {
         Background: ImageLabel,
