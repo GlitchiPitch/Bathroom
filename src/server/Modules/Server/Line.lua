@@ -9,12 +9,15 @@ local line: types.Line
 function setupLine()
     for i = #line:GetChildren(), 1, -1 do
         local linePoint = line[i] :: types.LinePoint
-        linePoint.CutCost.Value = i * config.CUT_COST_MULTIPLIER
-        linePoint.SurfaceGui.Enabled = linePoint.OccupiedUser.Value ~= nil
-        -- @param value is userId
-        linePoint.OccupiedUser.Changed:Connect(function(value: types.BathroomPlayer?)
-            linePoint.SurfaceGui.Enabled = value ~= nil
-        end)
+        if i ~= 1 then
+            linePoint.CutPrice.Value = i * config.CUT_COST_MULTIPLIER
+            linePoint.SurfaceGui.Enabled = linePoint.OccupiedUser.Value ~= nil
+            linePoint.OccupiedUser.Changed:Connect(function(occupant: types.BathroomPlayer?)
+                linePoint.SurfaceGui.Enabled = occupant ~= nil
+            end)
+        else
+            linePoint.SurfaceGui.Enabled = true
+        end
         linePoint.SurfaceGui.Index.Text = i
         linePoint.IndexPoint.Value = i
         -- linePoint.OccupiedUser.Value = 0
