@@ -13,7 +13,31 @@ function onCharacterAdded(player: Player, character: Model)
 
     humanoidRootPart:GetPropertyChangedSignal("CFrame"):Connect(function()
         humanoidRootPart:PivotTo(freeLinePoint.CFrame + Vector3.yAxis * 5)
-        freeLinePoint.OccupiedUser.Value = player.UserId
+        freeLinePoint.OccupiedUser.Value = player
+    end)
+end
+
+-- connect to changes of values
+function setupPlayer(player: types.BathroomPlayer)
+    local pointIndex = player.Session.CurrentPoint :: IntValue
+    pointIndex.Changed:Connect(function(value: number)
+        local timerTask: thread
+        if value == 1 then
+            -- send remote for open timer
+            timerTask = task.defer(function()
+                local bathroomTimer = player.Session.BathroomTimer :: IntValue
+                local bathroomTimerValue = bathroomTimer.Value :: number
+                for _ = bathroomTimerValue, 0, -1 do
+                    task.wait(1)
+                    bathroomTimer.Value -= 1
+                end
+            end)
+        else
+            if timerTask then 
+                -- send remote for close timer
+                task.cancel(timerTask) 
+            end
+        end
     end)
 end
 

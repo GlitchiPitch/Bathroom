@@ -10,12 +10,13 @@ function setupLine()
     for i = #line:GetChildren(), 1, -1 do
         local linePoint = line[i] :: types.LinePoint
         linePoint.CutCost.Value = i * config.CUT_COST_MULTIPLIER
-        linePoint.SurfaceGui.Enabled = linePoint.OccupiedUser.Value > 0
+        linePoint.SurfaceGui.Enabled = linePoint.OccupiedUser.Value ~= nil
         -- @param value is userId
-        linePoint.OccupiedUser.Changed:Connect(function(value: number)
-            linePoint.SurfaceGui.Enabled = value > 0
+        linePoint.OccupiedUser.Changed:Connect(function(value: types.BathroomPlayer?)
+            linePoint.SurfaceGui.Enabled = value ~= nil
         end)
         linePoint.SurfaceGui.Index.Text = i
+        linePoint.IndexPoint.Value = i
         -- linePoint.OccupiedUser.Value = 0
     end
 end
@@ -23,7 +24,7 @@ end
 function getLastFreePoint() : types.LinePoint
     for i = 1, #line:GetChildren() do
         local linePoint = line[i] :: types.LinePoint
-        if linePoint.OccupiedUser.Value ~= 0 then continue end
+        if linePoint.OccupiedUser.Value ~= nil then continue end
         return linePoint
     end
 end

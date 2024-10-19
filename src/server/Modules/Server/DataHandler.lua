@@ -40,6 +40,7 @@ function createSession()
     return session
 end
 
+-- #### @action add into player Extra & Session data folders
 function loadData(player: Player) 
     local playerData = dataStore:GetAsync(player.UserId) or defaultExtraData
     local extra = createExtra(playerData)
