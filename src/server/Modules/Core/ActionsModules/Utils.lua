@@ -3,12 +3,25 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local types = require(ReplicatedStorage.Types.Server.Main)
 
 -- @param direction 1 or -1
-function checkNextPoint(line: types.Line, currentIndex: number, direction: number) : types.LinePoint?
-    if line:FindFirstChild(tostring(currentIndex + (1 * direction))) then
-        return line[currentIndex + (1 * direction)]
+function checkNextPoint(line: types.Line, player: types.BathroomPlayer, direction: number) : types.LinePoint?
+    local currentPointIndex = player.Session.CurrentPoint.Value :: number
+    local nextIndex = currentPointIndex + (1 * direction)
+    if line:FindFirstChild(tostring(nextIndex)) then
+        return line[nextIndex]
     else
-        warn(`{currentIndex + (1 * direction)} is not member of line`)
+        warn(`{nextIndex} is not member of line`)
     end
+end
+
+function getPointsAroundPlayer(line: types.Line, player: types.BathroomPlayer) : {currentPoint: types.LinePoint?, nextPoint: types.LinePoint?}
+    local currentPointIndex = player.Session.CurrentPoint.Value :: number
+    local currentPoint = line[currentPointIndex] :: types.LinePoint
+	local nextPoint = checkNextPoint(line, currentPointIndex, -1) :: types.LinePoint?
+    return {
+        currentPoint = currentPoint,
+        nextPoint = nextPoint,
+    }
+
 end
 
 -- #### @action step back for player which occupied next line point
@@ -37,4 +50,5 @@ end
 return {
     checkNextPoint = checkNextPoint,
     movePlayerToPoint = movePlayerToPoint,
+    getPointsAroundPlayer = getPointsAroundPlayer,
 }
