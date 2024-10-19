@@ -1,3 +1,4 @@
+local MarketplaceService = game:GetService("MarketplaceService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerScriptService = game:GetService("ServerScriptService")
 
@@ -18,24 +19,20 @@ function cutByCash(player: types.BathroomPlayer, currentPoint: types.LinePoint, 
 	end
 end
 
-function cutByRobux(player: types.BathroomPlayer, currentPoint: types.LinePoint, nextPoint: types.LinePoint)
-    if utils.movePlayerToPoint(player, currentPoint, nextPoint) then
-        player.Session.CurrentPoint.Value = nextPoint.IndexPoint.Value
-        nextPoint.OccupiedUser.Value = player
-    end
+function cutByRobux(player: types.BathroomPlayer, productId: number)
+    MarketplaceService:PromptProductPurchase(player, productId)
 end
 
 function doCut(player: types.BathroomPlayer, productId: number?)
 	local currentPointIndex = player.Session.CurrentPoint.Value :: number
     local currentPoint = line[currentPointIndex] :: types.LinePoint
-	local nextPoint = utils.checkNextPoint(line, currentPointIndex, -1) :: types.LinePoint?
+	local nextPoint = utils.checkNextPoint(line, player, -1) :: types.LinePoint?
 
 	if nextPoint then
 		if not productId then
 			cutByCash(player, currentPoint, nextPoint)
 		else
-			print(productId)
-            cutByRobux(player, currentPoint, nextPoint)
+            cutByRobux(player, productId)
 		end
 	end
 end

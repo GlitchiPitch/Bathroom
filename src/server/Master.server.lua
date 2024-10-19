@@ -12,17 +12,20 @@ local playerModule = require(serverModules.Player)
 local coreLoop = require(coreModules.Loop)
 
 local actionsModule = require(coreModules.Actions)
+local products = require(ServerScriptService.Products)
 
 local line: types.Line = workspace.Line
 local mainRemote = ReplicatedStorage.Events.MainRemote
 
 function setup()
+    products.init(line)
     lineModule.init(line)
     actionsModule.init(line, mainRemote)
     playerModule.init(
         lineModule.getLastFreePoint,
         mainRemote
     )
+
 end
 function init()
     setup()
