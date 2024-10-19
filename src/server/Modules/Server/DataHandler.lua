@@ -1,6 +1,6 @@
-local DataStoreService = game:GetService("DataStoreService")
+-- local DataStoreService = game:GetService("DataStoreService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local dataStore = DataStoreService:GetDataStore("Bathroom")
+-- local dataStore = DataStoreService:GetDataStore("Bathroom")
 
 local types = require(ReplicatedStorage.Types.Server.Main)
 
@@ -42,7 +42,8 @@ end
 
 -- #### @action add into player Extra & Session data folders
 function loadData(player: Player) 
-    local playerData = dataStore:GetAsync(player.UserId) or defaultExtraData
+    local playerData = defaultExtraData
+    -- local playerData = dataStore:GetAsync(player.UserId) or defaultExtraData
     local extra = createExtra(playerData)
     local session = createSession()
 
@@ -57,7 +58,7 @@ function saveData(player: types.BathroomPlayer)
         for key, value in playerData:GetChildren() :: {IntValue | NumberValue | StringValue} do
             dataToSave[key] = value.Value
         end
-        dataStore:SetAsync(player.UserId, dataToSave)
+        -- dataStore:SetAsync(player.UserId, dataToSave)
     else
         warn(`could not be found session data for {player.Name} progress doesn't save`)
     end
