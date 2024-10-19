@@ -2,8 +2,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local dataTypes = require(ReplicatedStorage.Types.Server.Data)
 
 export type LinePoint = Part & {
-    OccupiedUser: IntValue,
+    OccupiedUser: ObjectValue,
     CutPrice: NumberValue,
+    IndexPoint: IntValue,
     SurfaceGui: SurfaceGui & {
         Background: ImageLabel,
         Index: ImageLabel,

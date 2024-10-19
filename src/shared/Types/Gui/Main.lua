@@ -49,6 +49,7 @@ export type ToiletTimer = TextLabel
 
 export type Main = ScreenGui & {
     CashAmount: TextLabel,
+    BathroomTimer: TextLabel,
     ProgressBar: ProgressBar,
     ControlPanel: ControlPanel,
     Abilities: Abilities,
