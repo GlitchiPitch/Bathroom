@@ -16,7 +16,6 @@ local types = require(ReplicatedStorage.Types.Server.Main)
 local abilities = require(modules.Abilities)
 local controlPanel = require(modules.ControlPanel)
 local disableMovement = require(modules.DisableMovement)
-local progressBar = require(modules.ProgressBar)
 local main = require(modules.Main)
 
 local mainGui = playerGui:WaitForChild("Main") :: guiTypes.Main
@@ -32,6 +31,7 @@ function init()
         playerSessionData,
         mainGui.CashAmount,
         mainGui.BathroomTimer,
+        mainGui.ProgressBar,
         mainRemote
     )
     abilities.init()
@@ -40,7 +40,6 @@ function init()
         mainRemote
     )
     disableMovement.init(playerModule)
-    progressBar.init()
 end
 
 init()
