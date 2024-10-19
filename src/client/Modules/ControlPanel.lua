@@ -5,7 +5,7 @@ local guiTypes = require(ReplicatedStorage.Types.Gui.Main)
 local config = require(StarterPlayer.StarterPlayerScripts.Config)
 
 local buttons: guiTypes.ControlPanelButtons
-local mainEvent: RemoteEvent
+local mainRemote: RemoteEvent
 
 function setupButtons(panelButtons: guiTypes.CashButtons | guiTypes.RobuxButtons)
     for _, v in panelButtons:GetDescendants() do
@@ -14,7 +14,7 @@ function setupButtons(panelButtons: guiTypes.CashButtons | guiTypes.RobuxButtons
             local eventName = button:GetAttribute(config.controlPanelButtonAttributes.event) :: string
             local productId = button:GetAttribute(config.controlPanelButtonAttributes.productId) :: number?
             button.Activated:Connect(function()
-                mainEvent:FireServer(eventName, productId)
+                mainRemote:FireServer(eventName, productId)
             end)
         end
     end
@@ -35,10 +35,10 @@ end
 
 function init(
     controlPanelButtons_: guiTypes.ControlPanelButtons,
-    mainEvent_: RemoteEvent
+    mainRemote_: RemoteEvent
 ) 
     buttons = controlPanelButtons_
-    mainEvent = mainEvent_
+    mainRemote = mainRemote_
 
     setup()
 end
