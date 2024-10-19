@@ -8,7 +8,6 @@ local config = require(ReplicatedStorage.Config)
 local cashLabel: TextLabel
 local bathroomTimer: TextLabel
 local progressBar: guiTypes.ProgressBar
-local controlPanel: guiTypes.ControlPanel
 local playerSessionData: types.SessionData
 
 local mainRemote: RemoteEvent
@@ -21,9 +20,8 @@ function onBathroomTimerChanged(currentTime: number)
     bathroomTimer.Text = currentTime
 end
 
-function activateBathroomTimer()
-    bathroomTimer.Visible = not bathroomTimer.Visible
-    controlPanel.Visible = not controlPanel.Visible
+function activateBathroomTimer(isOn: boolean)
+    bathroomTimer.Visible = isOn
 end
 
 function onCurrentPointChanged(currentPoint: number)
@@ -49,14 +47,12 @@ function setup()
 end
 function init(
     playerSessionData_: types.SessionData,
-    controlPanel_: guiTypes.ControlPanel,
     cashLabel_: TextLabel, 
     bathroomTimer_: TextLabel,
     progressBar_: guiTypes.ProgressBar,
     mainRemote_: RemoteEvent
 ) 
     playerSessionData = playerSessionData_
-    controlPanel = controlPanel_
     cashLabel = cashLabel_
     bathroomTimer = bathroomTimer_
     progressBar = progressBar_

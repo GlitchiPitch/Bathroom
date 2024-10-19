@@ -24,8 +24,6 @@ local playerModule = require(playerScripts:WaitForChild("PlayerModule"))
 
 local mainRemote = ReplicatedStorage.Events.MainRemote :: RemoteEvent
 
-function setup() end
-
 function init()
     main.init(
         playerSessionData,

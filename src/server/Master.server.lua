@@ -11,21 +11,18 @@ local lineModule = require(serverModules.Line)
 local playerModule = require(serverModules.Player)
 local coreLoop = require(coreModules.Loop)
 
-local cutsModule = require(coreModules.Cuts)
+local actionsModule = require(coreModules.Actions)
 
 local line: types.Line = workspace.Line
-
-function setupCore()
-    cutsModule.init()
-end
+local mainRemote = ReplicatedStorage.Events.MainRemote
 
 function setup()
     lineModule.init(line)
+    actionsModule.init(line, mainRemote)
     playerModule.init(
-        lineModule.getLastFreePoint
+        lineModule.getLastFreePoint,
+        mainRemote
     )
-
-    setupCore()
 end
 function init()
     setup()
