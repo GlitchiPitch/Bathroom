@@ -8,7 +8,7 @@ local buttons: guiTypes.ControlPanelButtons
 local mainEvent: RemoteEvent
 
 function setupButtons(panelButtons: guiTypes.CashButtons | guiTypes.RobuxButtons)
-    for _, v in panelButtons:GetChildren() do
+    for _, v in panelButtons:GetDescendants() do
         if v:IsA("GuiButton") then
             local button = v :: guiTypes.ControlPanelCashButton | guiTypes.ControlPanelRobuxButton
             local eventName = button:GetAttribute(config.controlPanelButtonAttributes.event) :: string

@@ -13,8 +13,10 @@ export type ControlPanelCashButton = TextButton
 
 export type CashButtons = Frame & {
     DoCut: ControlPanelCashButton,
-    Shove: ControlPanelCashButton,
-    StepBack: ControlPanelCashButton,
+    Addition: Frame & {
+        Shove: ControlPanelCashButton,
+        StepBack: ControlPanelCashButton,
+    }
 }
 
 export type RobuxButtons = Frame & {
