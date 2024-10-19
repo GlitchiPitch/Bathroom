@@ -51,7 +51,7 @@ end
 
 function saveData(player: types.BathroomPlayer)
     local dataToSave = {}
-    local playerData = getPlayerExtraData(player) :: Folder
+    local playerData = player.Extra :: Folder
     if playerData then
         for key, value in playerData:GetChildren() :: {IntValue | NumberValue | StringValue} do
             dataToSave[key] = value.Value
@@ -62,19 +62,7 @@ function saveData(player: types.BathroomPlayer)
     end
 end
 
-function getPlayerExtraData(player: types.BathroomPlayer) : types.ExtraData
-    local extra = player:WaitForChild("Extra") :: Folder
-    return extra
-end
-
-function getPlayerSessionData(player: types.BathroomPlayer) : types.SessionData
-    local session = player:WaitForChild("Session") :: Folder
-    return session
-end
-
 return {
     loadData = loadData,
     saveData = saveData,
-    getPlayerExtraData = getPlayerExtraData,
-    getPlayerSessionData = getPlayerSessionData,
 }

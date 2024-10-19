@@ -7,7 +7,6 @@ local dataHandler = require(ServerScriptService.Modules.Server.DataHandler)
 
 local getFreeLastPoint: () -> types.LinePoint
 
-
 function onCharacterAdded(player: Player, character: Model)
     local freeLinePoint = getFreeLastPoint()
     local humanoidRootPart = character:WaitForChild("HumanoidRootPart") :: BasePart
