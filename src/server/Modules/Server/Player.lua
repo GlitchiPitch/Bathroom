@@ -4,16 +4,19 @@ local ServerScriptService = game:GetService("ServerScriptService")
 
 local types = require(ReplicatedStorage.Types.Server.Main)
 local dataHandler = require(ServerScriptService.Modules.Server.DataHandler)
+local mainEvents = require(ReplicatedStorage.EventsList).mainEvents
 
 local getFreeLastPoint: () -> types.LinePoint
+local mainRemote: RemoteEvent
 
-function onCharacterAdded(player: Player, character: Model)
+function onCharacterAdded(player: types.BathroomPlayer, character: Model)
     local freeLinePoint = getFreeLastPoint()
     local humanoidRootPart = character:WaitForChild("HumanoidRootPart") :: BasePart
 
     humanoidRootPart:GetPropertyChangedSignal("CFrame"):Connect(function()
         humanoidRootPart:PivotTo(freeLinePoint.CFrame + Vector3.yAxis * 5)
         freeLinePoint.OccupiedUser.Value = player
+        player.Session.CurrentPoint.Value = freeLinePoint.IndexPoint.Value
     end)
 end
 
@@ -21,9 +24,10 @@ end
 function setupPlayer(player: types.BathroomPlayer)
     local pointIndex = player.Session.CurrentPoint :: IntValue
     pointIndex.Changed:Connect(function(value: number)
+        print(value)
         local timerTask: thread
         if value == 1 then
-            -- send remote for open timer
+            mainRemote:FireClient(player, mainEvents.bathroomTimer, true)
             timerTask = task.defer(function()
                 local bathroomTimer = player.Session.BathroomTimer :: IntValue
                 local bathroomTimerValue = bathroomTimer.Value :: number
@@ -33,9 +37,10 @@ function setupPlayer(player: types.BathroomPlayer)
                 end
             end)
         else
-            if timerTask then 
-                -- send remote for close timer
-                task.cancel(timerTask) 
+            if timerTask then
+                print("task.cancel(timerTask)")
+                mainRemote:FireClient(player, mainEvents.bathroomTimer, false)
+                task.cancel(timerTask)
             end
         end
     end)
@@ -43,6 +48,7 @@ end
 
 function onPlayerAdded(player: Player)
     dataHandler.loadData(player)
+    setupPlayer(player)
     player.CharacterAdded:Connect(function(character: Model)
         onCharacterAdded(player, character)
     end)
@@ -53,9 +59,11 @@ function setup()
 end
 
 function init(
-    getFreeLastPoint_: () -> types.LinePoint
+    getFreeLastPoint_: () -> types.LinePoint,
+    mainRemote_: RemoteEvent
 )
     getFreeLastPoint = getFreeLastPoint_
+    mainRemote = mainRemote_
     setup()
 end
 
