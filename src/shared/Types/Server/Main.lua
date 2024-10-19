@@ -2,8 +2,8 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local dataTypes = require(ReplicatedStorage.Types.Server.Data)
 
 export type LinePoint = Part & {
-    ToilewWaitTimer: IntValue?,
     OccupiedUser: IntValue,
+    CutPrice: NumberValue,
     SurfaceGui: SurfaceGui & {
         Background: ImageLabel,
         Index: ImageLabel,
