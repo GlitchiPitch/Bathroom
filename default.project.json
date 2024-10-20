@@ -2,23 +2,26 @@
   "name": "Bathroom",
   "tree": {
     "$className": "DataModel",
-
     "ReplicatedStorage": {
       "$path": "src/shared",
       "Events": {
         "$className": "Folder",
         "MainRemote": { "$className": "RemoteEvent" },
-        "MessageRemote": { "$className": "RemoteEvent" }
+        "MessageRemote": { "$className": "RemoteEvent" },
+        "AbilitiesRemote": { "$className": "RemoteEvent" }
       }
     },
-
     "ServerScriptService": {
       "$path": "src/server"
     },
-
     "StarterPlayer": {
       "StarterPlayerScripts": {
         "$path": "src/client"
+      }
+    },
+    "ServerStorage": {
+      "Rig": {
+        "$className": "Model"
       }
     }
   }
