@@ -21,20 +21,18 @@ function purchaseMessage(player: Player, donatName: string, receipt)
 	)
 end
 
-function cutAction(player)
+function cutAction(player: types.BathroomPlayer)
 	local currentPointIndex = player.Session.CurrentPoint.Value :: number
 	local currentPoint = line[currentPointIndex] :: types.LinePoint
 	local nextPoint = actionUtils.checkNextPoint(line, player, -1) :: types.LinePoint?
 	actionUtils.movePlayerToPoint(player, currentPoint, nextPoint)
-	player.Session.CurrentPoint.Value = nextPoint.IndexPoint.Value
-	nextPoint.OccupiedUser.Value = player
 end
 
 local products = {
 	-- @productName "Cut X1"
 	[2317679798] = function(player: types.BathroomPlayer, receipt)
 		cutAction(player)
-		purchaseMessage(player, "Cut X1", receipt)
+		-- purchaseMessage(player, "Cut X1", receipt)
 		return true
 	end,
 

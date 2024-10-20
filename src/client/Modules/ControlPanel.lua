@@ -4,6 +4,8 @@ local StarterPlayer = game:GetService("StarterPlayer")
 local guiTypes = require(ReplicatedStorage.Types.Gui.Main)
 local config = require(StarterPlayer.StarterPlayerScripts.Config)
 
+-- local freeCuts: IntValue
+
 local buttons: guiTypes.ControlPanelButtons
 local mainRemote: RemoteEvent
 

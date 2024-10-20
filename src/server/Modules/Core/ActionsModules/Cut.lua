@@ -13,8 +13,6 @@ function cutByCash(player: types.BathroomPlayer, currentPoint: types.LinePoint, 
 	if playerCash.Value >= cutPrice then
 		if utils.movePlayerToPoint(player, currentPoint, nextPoint) then
 			playerCash.Value -= cutPrice
-            player.Session.CurrentPoint.Value = nextPoint.IndexPoint.Value
-            nextPoint.OccupiedUser.Value = player
 		end
 	end
 end

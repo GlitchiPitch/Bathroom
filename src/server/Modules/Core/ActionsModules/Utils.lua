@@ -39,10 +39,14 @@ end
 function movePlayerToPoint(player: Player, currentPoint: types.LinePoint, nextPoint: types.LinePoint)
 	local character = player.Character
 	if character then
+        currentPoint.OccupiedUser.Value = nil
         checkPointIsOccupied(currentPoint, nextPoint)
+
 		local humanoid = character:FindFirstChildOfClass("Humanoid")
 		humanoid:MoveTo(nextPoint.Position)
-        currentPoint.OccupiedUser.Value = nil
+
+        player.Session.CurrentPoint.Value = nextPoint.IndexPoint.Value
+        nextPoint.OccupiedUser.Value = player
 		return true
 	end
 end
