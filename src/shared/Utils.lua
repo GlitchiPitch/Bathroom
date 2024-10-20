@@ -8,6 +8,19 @@ function formatNumber(num: number)
     end
 end
 
+function lookAtPart(aPosition: Vector3, bPosition: Vector3) : CFrame
+    return CFrame.lookAt(aPosition, bPosition)
+end
+
+function extractRotationOnly(aPosition: Vector3, bPosition: Vector3)
+    local lookAtCFrame = CFrame.lookAt(aPosition, bPosition)
+    local rotationOnlyCFrame = lookAtCFrame - lookAtCFrame.Position
+
+    return rotationOnlyCFrame
+end
+
 return {
     formatNumber = formatNumber,
+    lookAtPart = lookAtPart,
+    extractRotationOnly = extractRotationOnly,
 }

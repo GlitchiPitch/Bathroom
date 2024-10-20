@@ -6,6 +6,14 @@ local mainEvents = {
     updateCutPrice = "updateCutPrice",
 }
 
+local abilitiesEvents = {
+    emergency = "emergency",
+    troll = "troll",
+    everyoneToBathroom = "everyoneToBathroom",
+    runToBathroom = "runToBathroom",
+}
+
 return {
     mainEvents = mainEvents,
+    abilitiesEvents = abilitiesEvents,
 }
