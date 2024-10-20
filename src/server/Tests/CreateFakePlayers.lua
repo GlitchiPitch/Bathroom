@@ -22,7 +22,7 @@ end
 function init(line_: types.Line, dummy_: Model) 
     line = line_
     dummy = dummy_
-
+    
     fakePlayersfolder.Parent = workspace
     create()
 end

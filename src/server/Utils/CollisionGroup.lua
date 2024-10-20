@@ -2,7 +2,6 @@ local CollisionGroupService = game:GetService("PhysicsService")
 local groupName = "Players"
 
 function activateGroupToPlayer(character: Model)
-    
     for i, v in character:GetChildren() do
         if v:IsA("BasePart") or v:IsA("MeshPart") then
             v.CollisionGroup = groupName
