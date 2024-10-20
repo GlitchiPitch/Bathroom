@@ -13,7 +13,7 @@ local playerSessionData: types.SessionData
 local mainRemote: RemoteEvent
 
 function onCashChanged(cashAmount: number)
-    cashLabel.Text = cashAmount
+    cashLabel.Text = "$" .. " " .. cashAmount
 end
 
 function onBathroomTimerChanged(currentTime: number)

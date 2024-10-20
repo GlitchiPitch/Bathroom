@@ -3,6 +3,7 @@ local mainEvents = {
     shove = "shove",
     stepBack = "stepBack",
     bathroomTimer = "bathroomTimer",
+    updateCutPrice = "updateCutPrice",
 }
 
 return {

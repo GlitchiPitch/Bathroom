@@ -18,9 +18,9 @@ function onCharacterAdded(player: types.BathroomPlayer, character: Model)
         humanoidRootPart:PivotTo(freeLinePoint.CFrame + Vector3.yAxis * 5)
         freeLinePoint.OccupiedUser.Value = player
         player.Session.CurrentPoint.Value = freeLinePoint.IndexPoint.Value
+        -- @warn for test this function must be called another
+        activateCollisionGroupToPlayer(character)
     end)
-    -- @warn for test this function must be called another
-    activateCollisionGroupToPlayer(character)
 end
 
 -- connect to changes of values
@@ -28,7 +28,6 @@ function setupPlayer(player: types.BathroomPlayer)
     local pointIndex = player.Session.CurrentPoint :: IntValue
     local timerTask: thread
     pointIndex.Changed:Connect(function(value: number)
-        print(value)
         if value == 1 then
             mainRemote:FireClient(player, mainEvents.bathroomTimer, true)
             timerTask = task.defer(function()
@@ -41,7 +40,6 @@ function setupPlayer(player: types.BathroomPlayer)
             end)
         else
             if timerTask then
-                print("task.cancel(timerTask)")
                 mainRemote:FireClient(player, mainEvents.bathroomTimer, false)
                 task.cancel(timerTask)
                 timerTask = nil

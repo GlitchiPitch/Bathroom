@@ -21,8 +21,14 @@ local mainRemote = ReplicatedStorage.Events.MainRemote
 
 function setup()
     products.init(line)
-    lineModule.init(line)
-    actionsModule.init(line, mainRemote)
+    lineModule.init(
+        line,
+        mainRemote
+    )
+    actionsModule.init(
+        line,
+        mainRemote
+    )
     playerModule.init(
         lineModule.getLastFreePoint,
         collisionModule.activateGroupToPlayer,

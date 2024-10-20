@@ -3,7 +3,7 @@ local StarterPlayer = game:GetService("StarterPlayer")
 
 local guiTypes = require(ReplicatedStorage.Types.Gui.Main)
 local config = require(StarterPlayer.StarterPlayerScripts.Config)
-
+local mainEvents = require(ReplicatedStorage.EventsList).mainEvents
 -- local freeCuts: IntValue
 
 local buttons: guiTypes.ControlPanelButtons
@@ -30,9 +30,25 @@ function setupRobuxButtons()
     setupButtons(buttons.RobuxButtons)
 end
 
+function updateCutPrice(newValue: number)
+    print(newValue)
+    buttons.CashButtons.DoCut.Text = "$" .. " " .. newValue
+end
+
+local actions = {
+    [mainEvents.updateCutPrice] =  updateCutPrice,
+}
+
+function onMainRemote(action: string, ...: any)
+    if actions[action] then
+        actions[action](...)
+    end
+end
+
 function setup() 
-    setupCashButtons()    
+    setupCashButtons()
     setupRobuxButtons()
+    mainRemote.OnClientEvent:Connect(onMainRemote)
 end
 
 function init(
@@ -47,4 +63,5 @@ end
 
 return {
     init = init,
+    updateCutCost = updateCutPrice,
 }

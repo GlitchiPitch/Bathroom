@@ -5,7 +5,6 @@ function activateGroupToPlayer(character: Model)
     
     for i, v in character:GetChildren() do
         if v:IsA("BasePart") or v:IsA("MeshPart") then
-            if game.Players:GetPlayerFromCharacter(character) then print(v) end
             v.CollisionGroup = groupName
         end
     end
