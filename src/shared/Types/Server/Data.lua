@@ -1,10 +1,10 @@
-export type PlayerExtraData<T> = {
-    Level: T,
-    FreeCuts: T,
+export type PlayerExtraData = {
+    Level: IntValue,
+    FreeCuts: IntValue,
 }
 
-export type PlayerSessionData<T> = {
-    Cash: T,
+export type PlayerSessionData = {
+    Cash: NumberValue,
     CurrentMultiplier: NumberValue,
     CurrentPoint: IntValue,
     BathroomTimer: IntValue,
