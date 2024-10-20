@@ -7,6 +7,7 @@ local dataHandler = require(ServerScriptService.Modules.Server.DataHandler)
 local mainEvents = require(ReplicatedStorage.EventsList).mainEvents
 
 local getFreeLastPoint: () -> types.LinePoint
+local activateCollisionGroupToPlayer: (character: Model) -> nil
 local mainRemote: RemoteEvent
 
 function onCharacterAdded(player: types.BathroomPlayer, character: Model)
@@ -18,14 +19,16 @@ function onCharacterAdded(player: types.BathroomPlayer, character: Model)
         freeLinePoint.OccupiedUser.Value = player
         player.Session.CurrentPoint.Value = freeLinePoint.IndexPoint.Value
     end)
+    -- @warn for test this function must be called another
+    activateCollisionGroupToPlayer(character)
 end
 
 -- connect to changes of values
 function setupPlayer(player: types.BathroomPlayer)
     local pointIndex = player.Session.CurrentPoint :: IntValue
+    local timerTask: thread
     pointIndex.Changed:Connect(function(value: number)
         print(value)
-        local timerTask: thread
         if value == 1 then
             mainRemote:FireClient(player, mainEvents.bathroomTimer, true)
             timerTask = task.defer(function()
@@ -41,6 +44,7 @@ function setupPlayer(player: types.BathroomPlayer)
                 print("task.cancel(timerTask)")
                 mainRemote:FireClient(player, mainEvents.bathroomTimer, false)
                 task.cancel(timerTask)
+                timerTask = nil
             end
         end
     end)
@@ -60,10 +64,13 @@ end
 
 function init(
     getFreeLastPoint_: () -> types.LinePoint,
+    activateCollisionGroupToPlayer_: (character: Model) -> nil,
     mainRemote_: RemoteEvent
 )
     getFreeLastPoint = getFreeLastPoint_
+    activateCollisionGroupToPlayer = activateCollisionGroupToPlayer_
     mainRemote = mainRemote_
+
     setup()
 end
 
