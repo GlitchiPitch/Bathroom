@@ -3,11 +3,12 @@ local StarterPlayer = game:GetService("StarterPlayer")
 
 local guiTypes = require(ReplicatedStorage.Types.Gui.Main)
 local config = require(StarterPlayer.StarterPlayerScripts.Config)
-local mainEvents = require(ReplicatedStorage.EventsList).mainEvents
 -- local freeCuts: IntValue
 
 local buttons: guiTypes.ControlPanelButtons
 local mainRemote: RemoteEvent
+local playerCash: NumberValue
+local currentCutPrice: NumberValue
 
 function setupButtons(panelButtons: guiTypes.CashButtons | guiTypes.RobuxButtons)
     for _, v in panelButtons:GetDescendants() do
@@ -24,40 +25,38 @@ end
 
 function setupCashButtons()
     setupButtons(buttons.CashButtons)
+    playerCash.Changed:Connect(function(value: number)
+        buttons.CashButtons.DoCut.BackgroundColor3 = value < currentCutPrice.Value and Color3.new(1, 0, 0) or Color3.new(0, 1, 0)
+    end)
 end
 
 function setupRobuxButtons()
     setupButtons(buttons.RobuxButtons)
 end
 
-function updateCutPrice(newValue: number)
-    print(newValue)
-    buttons.CashButtons.DoCut.Text = "$" .. " " .. newValue
-end
-
-local actions = {
-    [mainEvents.updateCutPrice] =  updateCutPrice,
-}
-
-function onMainRemote(action: string, ...: any)
-    if actions[action] then
-        actions[action](...)
-    end
+function updateCutPrice()
+    buttons.CashButtons.DoCut.Text = "$" .. " " .. currentCutPrice.Value
+    currentCutPrice.Changed:Connect(function(value: number)
+        buttons.CashButtons.DoCut.Text = "$" .. " " .. value    
+    end)
 end
 
 function setup() 
     setupCashButtons()
     setupRobuxButtons()
-    mainRemote.OnClientEvent:Connect(onMainRemote)
+    updateCutPrice()
 end
 
 function init(
     controlPanelButtons_: guiTypes.ControlPanelButtons,
-    mainRemote_: RemoteEvent
+    currentCutPrice_: NumberValue,
+    mainRemote_: RemoteEvent,
+    playerCash_: NumberValue
 ) 
+    currentCutPrice = currentCutPrice_
     buttons = controlPanelButtons_
     mainRemote = mainRemote_
-
+    playerCash = playerCash_
     setup()
 end
 

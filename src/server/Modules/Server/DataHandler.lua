@@ -16,6 +16,7 @@ local defaultSessionData = {
     Cash = 0,
     BathroomTimer = 50,
     CurrentPoint = 0,
+    CutPrice = 0
 }
 
 function createExtra(playerData)

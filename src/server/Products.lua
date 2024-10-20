@@ -4,7 +4,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerScriptService = game:GetService("ServerScriptService")
 
 local types = require(ReplicatedStorage.Types.Server.Main)
-local actionUtils = require(ServerScriptService.Modules.Core.ActionsModules.Utils)
+local actionsUtils = require(ServerScriptService.Modules.Core.ActionsModules.ActionsUtils)
 
 local line: types.Line
 local messageRemote: RemoteEvent
@@ -24,8 +24,8 @@ end
 function cutAction(player: types.BathroomPlayer)
 	local currentPointIndex = player.Session.CurrentPoint.Value :: number
 	local currentPoint = line[currentPointIndex] :: types.LinePoint
-	local nextPoint = actionUtils.checkNextPoint(line, player, -1) :: types.LinePoint?
-	actionUtils.movePlayerToPoint(player, currentPoint, nextPoint)
+	local nextPoint = actionsUtils.checkNextPoint(line, player, -1) :: types.LinePoint?
+	actionsUtils.movePlayerToPoint(line, player, currentPoint, nextPoint)
 end
 
 local products = {

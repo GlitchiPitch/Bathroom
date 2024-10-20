@@ -18,6 +18,7 @@ function onCharacterAdded(player: types.BathroomPlayer, character: Model)
         humanoidRootPart:PivotTo(freeLinePoint.CFrame + Vector3.yAxis * 5)
         freeLinePoint.OccupiedUser.Value = player
         player.Session.CurrentPoint.Value = freeLinePoint.IndexPoint.Value
+        player.Session.CutPrice.Value = freeLinePoint.CutPrice.Value
         -- @warn for test this function must be called another
         activateCollisionGroupToPlayer(character)
     end)

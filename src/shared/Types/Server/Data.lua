@@ -6,6 +6,7 @@ export type PlayerExtraData = {
 export type PlayerSessionData = {
     Cash: NumberValue,
     CurrentMultiplier: NumberValue,
+    CutPrice: NumberValue,
     CurrentPoint: IntValue,
     BathroomTimer: IntValue,
 }

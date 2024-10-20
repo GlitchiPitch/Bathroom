@@ -35,7 +35,9 @@ function init()
     abilities.init()
     controlPanel.init(
         mainGui.ControlPanel.Buttons,
-        mainRemote
+        playerSessionData.CutPrice,
+        mainRemote,
+        playerSessionData.Cash
     )
     disableMovement.init(playerModule)
 end

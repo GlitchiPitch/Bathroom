@@ -22,8 +22,7 @@ local mainRemote = ReplicatedStorage.Events.MainRemote
 function setup()
     products.init(line)
     lineModule.init(
-        line,
-        mainRemote
+        line
     )
     actionsModule.init(
         line,
