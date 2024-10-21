@@ -7,8 +7,11 @@ local mainEvents = {
 }
 
 local abilitiesEvents = {
+    trolling = "trolling",
     emergency = "emergency",
-    troll = "troll",
+    swap = "swap",
+    stealCash = "stealCash",
+    sendToBack = "sendToBack",
     everyoneToBathroom = "everyoneToBathroom",
     runToBathroom = "runToBathroom",
 }

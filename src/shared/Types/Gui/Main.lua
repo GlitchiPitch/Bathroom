@@ -38,11 +38,29 @@ export type ControlPanel = Frame & {
 
 export type AbilitiesButton = ImageButton & {AbilityName: TextLabel}
 
+export type Trolling = Frame & {
+    Focus: Frame & {
+        Close: ImageButton,
+        Next: ImageButton,
+        Back: ImageButton,
+    },
+    Buttons: Frame & {
+        UIGridLayout: UIGridLayout,
+        -- @property 400 rb
+        Swap: ImageButton,
+        -- @property 400 rb
+        StealCash: ImageButton,
+        -- @property 400 rb
+        SendToBack: ImageButton,
+    }
+}
+
 export type Abilities = Frame & {
     Emergency: AbilitiesButton,
     Troll: AbilitiesButton,
     EveryoneToBathroom: AbilitiesButton,
     RunToBathroom: AbilitiesButton,
+    
 }
 
 export type ToiletTimer = TextLabel
@@ -54,6 +72,7 @@ export type Main = ScreenGui & {
     ControlPanel: ControlPanel,
     Abilities: Abilities,
     ToiletTimer: ToiletTimer,
+    Trolling: Trolling,
 }
 
 return true

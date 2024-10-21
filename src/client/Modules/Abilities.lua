@@ -1,17 +1,54 @@
+local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local StarterPlayer = game:GetService("StarterPlayer")
 
-local types = require(ReplicatedStorage.Types.Gui.Main)
+local guiTypes = require(ReplicatedStorage.Types.Gui.Main)
+local types = require(ReplicatedStorage.Types.Server.Main)
+local config = require(StarterPlayer.StarterPlayerScripts.Config)
 local abilitiesEvents = require(ReplicatedStorage.EventsList).abilitiesEvents
 
-local abilities: types.Abilities
+local abilities: guiTypes.Abilities
+local trolling: guiTypes.Trolling
+local controlPanel: guiTypes.ControlPanel
 local abilitiesRemote: RemoteEvent
+local setupCamera: config.SetupCameraParams
+
+function setupTrolling()
+    for _, v in trolling.Buttons:GetChildren() do
+        if v:IsA("GuiButton") then
+            local button = v :: ImageButton
+            local productId = button:GetAttribute(config.controlPanelButtonAttributes.productId) :: number?
+            button.Activated:Connect(function()
+                abilitiesRemote:FireServer(abilitiesEvents.trolling, productId)
+            end)
+        end
+    end
+
+end
 
 function onEmergency()
     abilitiesRemote:FireServer(abilitiesEvents.emergency)
 end
 
 function onTroll()
-    abilitiesRemote:FireServer(abilitiesEvents.troll)
+    trolling.Visible = not trolling.Visible
+    controlPanel.Visible = not trolling.Visible
+    local humanoid: Humanoid
+    
+    if trolling.Visible then
+        -- local players = Players:GetPlayers() :: {types.BathroomPlayer}
+        -- local randomPlayer = players[#players] :: types.BathroomPlayer
+        -- local humanoid = randomPlayer.Character:FindFirstChildOfClass("Humanoid")
+
+        local players = workspace:FindFirstChild("FakePlayersfolder"):GetChildren() :: {types.BathroomPlayer}
+        local randomPlayer = players[#players] :: types.BathroomPlayer
+        humanoid = randomPlayer:FindFirstChildOfClass("Humanoid")
+    else
+        local player = Players.LocalPlayer
+        humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+    end
+
+    setupCamera(humanoid)
 end
 
 function onEveryoneToBathroom()
@@ -31,11 +68,21 @@ end
 
 function setup() 
     setupButtons()
+    setupTrolling()
 end
 
-function init(abilities_: types.Abilities, abilitiesRemote_: RemoteEvent)  
+function init(
+    abilities_: guiTypes.Abilities, 
+    trolling_: guiTypes.Trolling,
+    controlPanel_: guiTypes.ControlPanel,
+    abilitiesRemote_: RemoteEvent, 
+    setupCamera_: config.SetupCameraParams
+)
     abilitiesRemote = abilitiesRemote_
+    controlPanel = controlPanel_
     abilities = abilities_
+    setupCamera = setupCamera_
+    trolling = trolling_
 
     setup()
 end

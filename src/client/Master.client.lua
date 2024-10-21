@@ -13,33 +13,43 @@ local guiTypes = require(ReplicatedStorage.Types.Gui.Main)
 local types = require(ReplicatedStorage.Types.Server.Main)
 
 -- MODULES --
-local abilities = require(modules.Abilities)
-local controlPanel = require(modules.ControlPanel)
-local disableMovement = require(modules.DisableMovement)
-local main = require(modules.Main)
+local abilitiesModule = require(modules.Abilities)
+local controlPanelModule = require(modules.ControlPanel)
+local disableMovementModule = require(modules.DisableMovement)
+local mainModule = require(modules.Main)
+local cameraModule = require(modules.Camera)
 
+local camera = workspace.CurrentCamera
 local mainGui = playerGui:WaitForChild("Main") :: guiTypes.Main
 local playerSessionData = player:WaitForChild("Session") :: types.SessionData
 local playerModule = require(playerScripts:WaitForChild("PlayerModule"))
 
 local mainRemote = ReplicatedStorage.Events.MainRemote :: RemoteEvent
+local abilitiesRemote = ReplicatedStorage.Events.AbilitiesRemote :: RemoteEvent
 
 function init()
-    main.init(
+    cameraModule.init(camera)
+    mainModule.init(
         playerSessionData,
         mainGui.CashAmount,
         mainGui.BathroomTimer,
         mainGui.ProgressBar,
         mainRemote
     )
-    abilities.init()
-    controlPanel.init(
+    abilitiesModule.init(
+        mainGui.Abilities,
+        mainGui.Trolling,
+        mainGui.ControlPanel,
+        abilitiesRemote,
+        cameraModule.setupCamera
+    )
+    controlPanelModule.init(
         mainGui.ControlPanel.Buttons,
         playerSessionData.CutPrice,
         mainRemote,
         playerSessionData.Cash
     )
-    disableMovement.init(playerModule)
+    disableMovementModule.init(playerModule)
 end
 
 init()

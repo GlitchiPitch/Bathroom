@@ -1,7 +1,7 @@
-local MarketplaceService = game:GetService("MarketplaceService")
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerScriptService = game:GetService("ServerScriptService")
+local MarketplaceService = game:GetService("MarketplaceService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
 
 local types = require(ReplicatedStorage.Types.Server.Main)
 local actionsUtils = require(ServerScriptService.Modules.Core.ActionsModules.ActionsUtils)
@@ -37,33 +37,34 @@ local products = {
 	end,
 
 	-- @productName "Cut X3"
-	[2317694877] = function(player: types.BathroomPlayer)
+	[2317694877] = function(player: types.BathroomPlayer, receipt)
 		return true
 	end,
 
-	[2] = {
-		Name = "Cut X7",
-		Function = function(Player, Receipt)
-			print(Player, Receipt)
+	-- @productName "Cut X7"
+	[2] = function(player: types.BathroomPlayer, receipt)
 			return true
 		end,
-	},
 
-	[3] = {
-		Name = "Cut X12",
-		Function = function(Player, Receipt)
-			print(Player, Receipt)
+	-- @productName "Cut X12"
+	[3] = function(player: types.BathroomPlayer, receipt)
 			return true
 		end,
-	},
 
-	[4] = {
-		Name = "Swap",
-		Function = function(Player, Receipt)
-			print(Player, Receipt)
-			return true
-		end,
-	},
+	-- @productName "Swap"
+	[2319146170] = function(player: types.BathroomPlayer, receipt)
+		return true
+	end,
+
+	-- @productName "StealCash"
+	[2319146247] = function(player: types.BathroomPlayer, receipt)
+		return true
+	end,
+
+	-- @productName "SendToBack"
+	[6] = function(player: types.BathroomPlayer, receipt)
+		return true
+	end,
 }
 
 function processReceipt(receiptInfo)
@@ -84,7 +85,6 @@ end
 
 function init(line_: types.Line)
 	line = line_
-
 	MarketplaceService.ProcessReceipt = processReceipt
 end
 

@@ -1,3 +1,4 @@
+local MarketplaceService = game:GetService("MarketplaceService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local types = require(ReplicatedStorage.Types.Server.Main)
@@ -9,10 +10,6 @@ function onEmergency(player: types.BathroomPlayer)
 
 end
 
-function onTroll(player: types.BathroomPlayer) 
-
-end
-
 function onEveryoneToBathroom(player: types.BathroomPlayer) 
 
 end
@@ -21,9 +18,13 @@ function onRunToBathroom(player: types.BathroomPlayer)
 
 end
 
+function onTrolling(player: types.BathroomPlayer, procudtId: number)
+    MarketplaceService:PromptProductPurchase(player, procudtId)
+end
+
 local actions = {
+    [abilitiesEvents.trolling] = onTrolling,
     [abilitiesEvents.emergency] = onEmergency,
-    [abilitiesEvents.troll] = onTroll,
     [abilitiesEvents.everyoneToBathroom] = onEveryoneToBathroom,
     [abilitiesEvents.runToBathroom] = onRunToBathroom,
 }
