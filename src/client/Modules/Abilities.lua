@@ -23,7 +23,6 @@ function setupTrolling()
             end)
         end
     end
-
 end
 
 function onEmergency()

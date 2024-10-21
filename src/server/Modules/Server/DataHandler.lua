@@ -3,6 +3,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 -- local dataStore = DataStoreService:GetDataStore("Bathroom")
 
 local types = require(ReplicatedStorage.Types.Server.Main)
+local dataTypes = require(ReplicatedStorage.Types.Server.Data)
 
 local defaultExtraData = {
     FreeCuts = 3,
@@ -12,7 +13,7 @@ local defaultExtraData = {
     UpgradePoints = 1,
 }
 
-local defaultSessionData = {
+local defaultSessionData: dataTypes.PlayerSessionData<number, number> = {
     Cash = 0,
     BathroomTimer = 50,
     CurrentPoint = 0,

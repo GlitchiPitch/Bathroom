@@ -3,6 +3,12 @@ local controlPanelButtonAttributes = {
     productId = "ProductId",
 }
 
+export type SetupCameraParams = (
+    camerasubject: Humanoid, 
+    targetCFrame: CFrame, 
+    tweenInfo: {duration: number, isWaiting: boolean?}?
+) -> ()
+
 return {
     controlPanelButtonAttributes = controlPanelButtonAttributes,
 }

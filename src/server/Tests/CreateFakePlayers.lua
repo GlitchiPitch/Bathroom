@@ -4,6 +4,7 @@ local types = require(ReplicatedStorage.Types.Server.Main)
 local FAKE_PLAYERS_AMOUNT = 3
 
 local fakePlayersfolder = Instance.new("Folder")
+fakePlayersfolder.Name = "FakePlayersfolder"
 
 local line: types.Line
 local dummy: Model
